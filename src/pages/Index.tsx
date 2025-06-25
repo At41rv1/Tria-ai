@@ -65,8 +65,8 @@ const Index = () => {
               Meet Your AI Companions
             </h2>
             <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Experience the future of AI interaction with personalities that understand, engage, and entertain
-                 In Greek, the Number "3" is τρία (Tria).
+              Experience the future of AI interaction with personalities that understand, engage, and entertain , 
+                        In Greek, the Number "3" is τρία (Tria).
             </p>
           </div>
           
