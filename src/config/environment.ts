@@ -1,4 +1,3 @@
-// Environment configuration for deployment
 export const config = {
   // Database Configuration
   database: {
@@ -16,13 +15,6 @@ export const config = {
     appId: import.meta.env.VITE_FIREBASE_APP_ID || '',
   },
 
-  // API Configuration
-  api: {
-    // Add your API endpoints here
-    baseUrl: import.meta.env.VITE_API_BASE_URL || 'https://api.example.com',
-    // Add any API keys that are safe to expose (publishable keys only)
-    openaiApiKey: import.meta.env.VITE_OPENAI_API_KEY || '', // Only if using client-side AI
-  },
 
   // App Configuration
   app: {
