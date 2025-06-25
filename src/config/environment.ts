@@ -18,16 +18,16 @@ export const config = {
   },
 
   // API Configuration
-  api: {
-    // Add your API endpoints here
-    baseUrl: import.meta.env.VITE_API_BASE_URL || 'https://api.example.com',
-    // Add any API keys that are safe to expose (publishable keys only)
-    openaiApiKey: import.meta.env.VITE_OPENAI_API_KEY || '', // Only if using client-side AI
+  // Groq AI Configuration
+  groq: {
+    apiKey: import.meta.env.VITE_GROQ_API_KEY || '',
+    baseUrl: import.meta.env.VITE_GROQ_BASE_URL || 'https://api.groq.com/openai/v1',
+    model: import.meta.env.VITE_GROQ_MODEL || 'llama-3.1-8b-instant',
   },
 
   // App Configuration
   app: {
-    name: 'Triple Chat',
+    name: 'Tria Chat',
     version: '1.0.0',
     environment: import.meta.env.MODE || 'development',
     isDevelopment: import.meta.env.DEV || false,
