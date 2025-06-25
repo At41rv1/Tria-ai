@@ -18,12 +18,7 @@ export const config = {
   },
 
   // API Configuration
-  // Groq AI Configuration
-  groq: {
-    apiKey: import.meta.env.VITE_GROQ_API_KEY || '',
-    baseUrl: import.meta.env.VITE_GROQ_BASE_URL || 'https://api.groq.com/openai/v1',
-    model: import.meta.env.VITE_GROQ_MODEL || 'llama-3.1-8b-instant',
-  },
+  
 
   // App Configuration
   app: {
