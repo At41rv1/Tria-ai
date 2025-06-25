@@ -4,7 +4,7 @@ export const config = {
   // Database Configuration
   database: {
     // Replace with your actual Neon database URL
-    url: import.meta.env.VITE_DATABASE_URL || 'postgresql://neondb_owner:npg_qHSkAB7l9utN@ep-misty-flower-a8tlacd0-pooler.eastus2.azure.neon.tech/neondb?sslmode=require',
+    url: import.meta.env.VITE_DATABASE_URL || '',
   },
   
   // Firebase Configuration (if using Firebase)
