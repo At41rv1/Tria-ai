@@ -27,8 +27,8 @@ const Index = () => {
           </div>
           
           <h1 className="text-6xl sm:text-7xl md:text-8xl font-bold text-gray-800 mb-6 animate-fade-in delay-300">
-            Triple
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-600 to-gray-800"> Chat</span>
+            Tria
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-600 to-gray-800"> AI</span>
           </h1>
           
           <p className="text-xl sm:text-2xl md:text-3xl text-gray-600 mb-6 animate-fade-in delay-500 leading-relaxed">
@@ -37,6 +37,7 @@ const Index = () => {
           
           <p className="text-base sm:text-lg text-gray-500 mb-12 max-w-3xl mx-auto animate-fade-in delay-700 leading-relaxed px-4">
             Experience dynamic conversations with AI companions or get personalized learning support with our intelligent tutoring system that adapts to your unique learning style.
+              Group Chat with AI Comming Soon ~ At41rv
           </p>
           
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center animate-fade-in delay-1000">
@@ -50,7 +51,7 @@ const Index = () => {
             
             <div className="flex items-center text-gray-500 text-sm bg-white/60 backdrop-blur-sm px-4 py-2 rounded-full border border-gray-200">
               <CheckCircle className="w-4 h-4 mr-2 text-green-500" />
-              Free • No Registration Required
+              Free to use • Only Login for chat history
             </div>
           </div>
         </div>
@@ -150,7 +151,7 @@ const Index = () => {
       <footer className="relative py-12 px-4 sm:px-6 lg:px-8 border-t border-gray-200 bg-white/50 backdrop-blur-sm">
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-gray-500">
-            Built with ❤️ for the future of AI conversation
+               Tria Chat Project 2025  ~ At41rv
           </p>
         </div>
       </footer>
