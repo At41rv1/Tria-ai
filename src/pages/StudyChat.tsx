@@ -107,7 +107,7 @@ const StudyChat = () => {
         
         const tutor2Response = await callGroqAPI(
           `Learning context:\n${updatedContext}\n\nPlease provide additional educational support as Tutor2. You can build on Tutor1's explanation with engaging examples and connections.`,
-          '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',
+          'YOUR_NEW_GROQ_API_KEY_HERE', // Replace this with your valid Groq API key
           'Tutor2'
         );
 
