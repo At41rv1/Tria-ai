@@ -1,7 +1,6 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { BookOpen, MessageCircle, ArrowLeft, Users, Brain, Settings } from 'lucide-react';
+import { BookOpen, MessageCircle, ArrowLeft, Users, Brain, Settings, Mic, Sparkles } from 'lucide-react';
 import { useAuth } from '../contexts/HybridAuthContext';
 import UserButton from './UserButton';
 
@@ -9,9 +8,9 @@ const ChatSelector = () => {
   const { currentUser } = useAuth();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50">
       {/* Header */}
-      <div className="bg-white/90 backdrop-blur-sm shadow-lg border-b border-gray-200 p-4">
+      <div className="bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100 p-4">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <Link 
             to="/" 
@@ -23,10 +22,10 @@ const ChatSelector = () => {
           </Link>
           
           <div className="text-center flex-1 mx-4">
-            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800">
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
               Choose Your Experience
             </h1>
-            <p className="text-xs sm:text-sm text-gray-600 hidden sm:block">Select your preferred chat mode</p>
+            <p className="text-xs sm:text-sm text-gray-600 hidden sm:block">Select your preferred AI interaction mode</p>
           </div>
           
           <div className="flex items-center space-x-2">
@@ -59,10 +58,10 @@ const ChatSelector = () => {
             {/* Study Mode */}
             <Link 
               to="/study-chat"
-              className="group bg-white/80 backdrop-blur-sm rounded-2xl sm:rounded-3xl p-6 sm:p-8 border border-gray-200 hover:bg-white hover:shadow-2xl transition-all duration-300 hover:scale-105 cursor-pointer"
+              className="group bg-white/80 backdrop-blur-sm rounded-3xl p-6 sm:p-8 border border-gray-200 hover:bg-white hover:shadow-2xl transition-all duration-500 hover:scale-105 cursor-pointer"
             >
               <div className="text-center">
-                <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-r from-blue-600 to-blue-700 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform shadow-lg">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform shadow-lg">
                   <Brain className="text-white" size={32} />
                 </div>
                 <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-800 mb-3 sm:mb-4">Study Mode</h3>
@@ -71,11 +70,11 @@ const ChatSelector = () => {
                   guiding you from confusion to mastery with personalized educational support.
                 </p>
                 <div className="flex flex-col sm:flex-row sm:justify-center space-y-2 sm:space-y-0 sm:space-x-2 lg:space-x-4">
-                  <div className="flex items-center justify-center text-gray-600 bg-blue-50 px-3 sm:px-4 py-2 rounded-full">
+                  <div className="flex items-center justify-center text-indigo-600 bg-indigo-50 px-3 sm:px-4 py-2 rounded-full">
                     <BookOpen className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
                     <span className="text-xs sm:text-sm font-medium">Adaptive Learning</span>
                   </div>
-                  <div className="flex items-center justify-center text-gray-600 bg-blue-50 px-3 sm:px-4 py-2 rounded-full">
+                  <div className="flex items-center justify-center text-purple-600 bg-purple-50 px-3 sm:px-4 py-2 rounded-full">
                     <Users className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
                     <span className="text-xs sm:text-sm font-medium">Personalized Tutoring</span>
                   </div>
@@ -86,10 +85,10 @@ const ChatSelector = () => {
             {/* Conversation Mode */}
             <Link 
               to="/chat"
-              className="group bg-white/80 backdrop-blur-sm rounded-2xl sm:rounded-3xl p-6 sm:p-8 border border-gray-200 hover:bg-white hover:shadow-2xl transition-all duration-300 hover:scale-105 cursor-pointer"
+              className="group bg-white/80 backdrop-blur-sm rounded-3xl p-6 sm:p-8 border border-gray-200 hover:bg-white hover:shadow-2xl transition-all duration-500 hover:scale-105 cursor-pointer"
             >
               <div className="text-center">
-                <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-r from-gray-600 to-gray-700 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform shadow-lg">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform shadow-lg">
                   <MessageCircle className="text-white" size={32} />
                 </div>
                 <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-800 mb-3 sm:mb-4">Conversation with Ram & Laxman</h3>
@@ -98,12 +97,12 @@ const ChatSelector = () => {
                   that bring intelligence, humor, and engaging dialogue to every interaction.
                 </p>
                 <div className="flex flex-col sm:flex-row sm:justify-center space-y-2 sm:space-y-0 sm:space-x-2 lg:space-x-4">
-                  <div className="flex items-center justify-center text-gray-600 bg-gray-100 px-3 sm:px-4 py-2 rounded-full">
-                    <MessageCircle className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
-                    <span className="text-xs sm:text-sm font-medium">Dynamic Conversations</span>
+                  <div className="flex items-center justify-center text-purple-600 bg-purple-50 px-3 sm:px-4 py-2 rounded-full">
+                    <Mic className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
+                    <span className="text-xs sm:text-sm font-medium">Voice Enabled</span>
                   </div>
-                  <div className="flex items-center justify-center text-gray-600 bg-gray-100 px-3 sm:px-4 py-2 rounded-full">
-                    <Users className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
+                  <div className="flex items-center justify-center text-pink-600 bg-pink-50 px-3 sm:px-4 py-2 rounded-full">
+                    <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
                     <span className="text-xs sm:text-sm font-medium">AI Personalities</span>
                   </div>
                 </div>

@@ -1,8 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Send, User, Home, ArrowLeft, Brain } from 'lucide-react';
+import { Send, User, Home, ArrowLeft, Brain, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import ModelSelector from '../components/ModelSelector';
 import UserButton from '../components/UserButton';
+import VoiceAssistant from '../components/VoiceAssistant';
 
 interface Message {
   id: string;
@@ -15,7 +16,7 @@ const StudyChat = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedModel, setSelectedModel] = useState('llama-3.1-8b-instant'); // Default to Fast Mode
+  const [selectedModel, setSelectedModel] = useState('llama-3.1-8b-instant');
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -61,13 +62,14 @@ const StudyChat = () => {
     }
   };
 
-  const handleSendMessage = async () => {
-    if (!input.trim() || isLoading) return;
+  const handleSendMessage = async (messageText?: string) => {
+    const textToSend = messageText || input.trim();
+    if (!textToSend || isLoading) return;
 
     const userMessage: Message = {
       id: Date.now().toString(),
       sender: 'user',
-      content: input.trim(),
+      content: textToSend,
       timestamp: new Date(),
     };
 
@@ -95,6 +97,11 @@ const StudyChat = () => {
 
       setMessages(prev => [...prev, tutor1Message]);
 
+      // Speak Tutor1's response
+      if ((window as any).triaSpeak) {
+        (window as any).triaSpeak(`Structured Tutor says: ${tutor1Response}`);
+      }
+
       setTimeout(async () => {
         const updatedContext = conversationContext + `\nTutor1: ${tutor1Response}`;
         
@@ -112,6 +119,14 @@ const StudyChat = () => {
         };
 
         setMessages(prev => [...prev, tutor2Message]);
+        
+        // Speak Tutor2's response after Tutor1
+        setTimeout(() => {
+          if ((window as any).triaSpeak) {
+            (window as any).triaSpeak(`Creative Tutor says: ${tutor2Response}`);
+          }
+        }, 2000);
+        
         setIsLoading(false);
       }, 1500);
 
@@ -119,6 +134,11 @@ const StudyChat = () => {
       console.error('Error in learning session:', error);
       setIsLoading(false);
     }
+  };
+
+  const handleVoiceInput = (text: string) => {
+    setInput(text);
+    handleSendMessage(text);
   };
 
   const getSenderName = (sender: string) => {
@@ -137,20 +157,33 @@ const StudyChat = () => {
   const getSenderColor = (sender: string) => {
     switch (sender) {
       case 'user':
-        return 'bg-blue-600 text-white shadow-lg';
+        return 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg';
       case 'tutor1':
-        return 'bg-white text-gray-800 border border-blue-200 shadow-md';
+        return 'bg-white text-gray-800 border border-indigo-200 shadow-md';
       case 'tutor2':
-        return 'bg-blue-50 text-gray-800 border border-blue-300 shadow-md';
+        return 'bg-gradient-to-r from-indigo-50 to-purple-50 text-gray-800 border border-purple-200 shadow-md';
       default:
         return 'bg-gray-100 text-gray-800';
     }
   };
 
+  const getSenderAvatar = (sender: string) => {
+    switch (sender) {
+      case 'user':
+        return 'bg-gradient-to-r from-indigo-500 to-purple-500';
+      case 'tutor1':
+        return 'bg-gradient-to-r from-indigo-600 to-indigo-700';
+      case 'tutor2':
+        return 'bg-gradient-to-r from-purple-500 to-purple-600';
+      default:
+        return 'bg-gray-600';
+    }
+  };
+
   return (
-    <div className="h-screen bg-gradient-to-br from-blue-50 to-white flex flex-col">
+    <div className="h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50 flex flex-col">
       {/* Header */}
-      <div className="bg-white/90 backdrop-blur-sm shadow-lg border-b border-gray-200 p-4">
+      <div className="bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100 p-4">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <Link 
@@ -164,13 +197,14 @@ const StudyChat = () => {
           </div>
           
           <div className="text-center">
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">
+            <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
               Study Mode
             </h1>
             <p className="text-xs sm:text-sm text-gray-600 hidden sm:block">AI-Powered Learning Experience</p>
           </div>
           
           <div className="flex items-center space-x-3">
+            <VoiceAssistant onVoiceInput={handleVoiceInput} isProcessing={isLoading} />
             <ModelSelector 
               selectedModel={selectedModel}
               onModelChange={setSelectedModel}
@@ -186,7 +220,7 @@ const StudyChat = () => {
           {messages.length === 0 && (
             <div className="text-center py-8 sm:py-16">
               <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 sm:p-12 shadow-xl border border-gray-200 max-w-2xl mx-auto">
-                <div className="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-r from-blue-600 to-blue-700 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                <div className="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
                   <Brain className="text-white" size={32} />
                 </div>
                 <h3 className="text-xl sm:text-2xl font-bold text-gray-800 mb-2">Welcome to Study Mode!</h3>
@@ -196,14 +230,14 @@ const StudyChat = () => {
                 
                 <div className="flex flex-col sm:flex-row justify-center items-center space-y-6 sm:space-y-0 sm:space-x-12">
                   <div className="text-center group">
-                    <div className="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-r from-blue-600 to-blue-700 rounded-2xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform shadow-lg">
+                    <div className="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-r from-indigo-600 to-indigo-700 rounded-2xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform shadow-lg">
                       <User className="text-white" size={24} />
                     </div>
                     <p className="text-lg font-semibold text-gray-700">Structured Tutor</p>
                     <p className="text-xs sm:text-sm text-gray-500">Clear & Organized</p>
                   </div>
                   <div className="text-center group">
-                    <div className="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-r from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform shadow-lg">
+                    <div className="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-r from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform shadow-lg">
                       <User className="text-white" size={24} />
                     </div>
                     <p className="text-lg font-semibold text-gray-700">Creative Tutor</p>
@@ -221,7 +255,7 @@ const StudyChat = () => {
             >
               <div className={`max-w-[85%] sm:max-w-[75%] rounded-3xl p-4 sm:p-6 ${getSenderColor(message.sender)} backdrop-blur-sm`}>
                 <div className="flex items-center space-x-3 mb-3">
-                  <div className="w-8 h-8 bg-gray-600 rounded-full flex items-center justify-center">
+                  <div className={`w-8 h-8 ${getSenderAvatar(message.sender)} rounded-full flex items-center justify-center`}>
                     <User className="text-white" size={16} />
                   </div>
                   <span className="font-semibold text-sm">{getSenderName(message.sender)}</span>
@@ -239,9 +273,9 @@ const StudyChat = () => {
               <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-6 max-w-[75%] shadow-lg border border-gray-200">
                 <div className="flex items-center space-x-3">
                   <div className="flex space-x-1">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"></div>
-                    <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce delay-100"></div>
-                    <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce delay-200"></div>
+                    <div className="w-2 h-2 bg-indigo-500 rounded-full animate-bounce"></div>
+                    <div className="w-2 h-2 bg-purple-500 rounded-full animate-bounce delay-100"></div>
+                    <div className="w-2 h-2 bg-pink-500 rounded-full animate-bounce delay-200"></div>
                   </div>
                   <span className="text-sm text-gray-600 font-medium">Tutors are thinking...</span>
                 </div>
@@ -254,7 +288,7 @@ const StudyChat = () => {
       </div>
 
       {/* Input */}
-      <div className="bg-white/90 backdrop-blur-sm border-t border-gray-200 p-4 sm:p-6">
+      <div className="bg-white/95 backdrop-blur-md border-t border-gray-100 p-4 sm:p-6">
         <div className="max-w-5xl mx-auto">
           <div className="flex space-x-3 sm:space-x-4">
             <input
@@ -263,13 +297,13 @@ const StudyChat = () => {
               onChange={(e) => setInput(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
               placeholder="Ask your tutors anything you want to learn..."
-              className="flex-1 px-4 sm:px-6 py-3 sm:py-4 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white shadow-lg placeholder-gray-500 text-sm sm:text-base"
+              className="flex-1 px-4 sm:px-6 py-3 sm:py-4 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white shadow-lg placeholder-gray-500 text-sm sm:text-base"
               disabled={isLoading}
             />
             <button
-              onClick={handleSendMessage}
+              onClick={() => handleSendMessage()}
               disabled={!input.trim() || isLoading}
-              className="px-6 sm:px-8 py-3 sm:py-4 bg-blue-600 text-white rounded-full hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center space-x-2 shadow-lg hover:scale-105"
+              className="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-full hover:from-indigo-700 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center space-x-2 shadow-lg hover:scale-105"
             >
               <Send size={18} />
             </button>
