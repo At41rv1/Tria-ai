@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+fimport React, { useState, useRef, useEffect } from 'react';
 import { Send, User, Home, ArrowLeft, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import ModelSelector from '../components/ModelSelector';
@@ -120,7 +120,7 @@ const Chat = () => {
     try {
       const ramResponse = await callGroqAPI(
         `Here's our conversation so far:\n${conversationContext}\n\nPlease respond as Ram. Keep it conversational and engaging.`,
-        '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',
+        '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',
         'Ram'
       );
 
@@ -144,7 +144,7 @@ const Chat = () => {
         
         const laxmanResponse = await callGroqAPI(
           `Here's our conversation so far:\n${updatedContext}\n\nPlease respond as Laxman. You can respond to both the user and Ram's message. Keep it funny and engaging while being helpful.`,
-          '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',
+          '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',
           'Laxman'
         );
 
